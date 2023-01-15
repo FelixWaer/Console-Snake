@@ -6,7 +6,7 @@ void Food::setPos(int X, int Y)
 	yPos = Y;
 }
 
-void Food::eaten(int snake_xPos, int snake_yPos, bool* Eaten)
+void Food::eaten(int snake_xPos,int snake_yPos, bool* Eaten)
 {
 	if (xPos == snake_xPos && yPos == snake_yPos)
 	{

@@ -9,7 +9,7 @@
 char key = ' ';
 int xSpeed = 1;
 int ySpeed = 0;
-int snakeLenght = 0;
+int bodyLenght = 0;
 
 void getKey()
 {
@@ -19,13 +19,13 @@ void getKey()
 
 void gameRendering()
 {
-	auto next_period = std::chrono::steady_clock::now() + std::chrono::milliseconds(1);
+	auto next_period = std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
 
-	startUp(snakeLenght);
-	addBody(&snakeLenght);
-	movement(&key, &xSpeed, &ySpeed);
-	move(snakeLenght, xSpeed, ySpeed);
-	draw(snakeLenght);
+	startUp(bodyLenght);
+	addBody(&bodyLenght);
+	movement(key, xSpeed, ySpeed);
+	move(bodyLenght, xSpeed, ySpeed);
+	draw(bodyLenght);
 
 	std::this_thread::sleep_until(next_period);
 	std::cout << "\x1B[2J\x1B[H";

@@ -1,4 +1,5 @@
 #include "snakeBody.h"
+
 snakeBody::snakeBody(int X, int Y)
 {
 	xPos = X;

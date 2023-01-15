@@ -1,9 +1,10 @@
-#include "gameplay.h"
-#include "iostream"
-#include  "vector"
-#include "cstdlib"
-#include "ctime"
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
 
+#include "gameplay.h"
 #include "snakeBody.h"
 #include "Food.h"
 
@@ -13,7 +14,7 @@ std::shared_ptr<Food> theFood = std::make_shared<Food>();
 
 bool foodSpawned = false;
 
-void startUp(const int& bodyLength)
+void startUp(int bodyLength)
 {
 	static bool start = true;
 	if (start)
@@ -25,58 +26,81 @@ void startUp(const int& bodyLength)
 	}
 }
 
-void movement(const char* p_key, int* p_xSpeed, int* p_ySpeed)
+void movement(char p_key, int& p_xSpeed, int& p_ySpeed)
 {
-	if (*p_key == 'd' && *p_xSpeed >= 0)
+	if (p_key == 'd' &&p_xSpeed >= 0)
 	{
-		*p_xSpeed = 1;
-		*p_ySpeed = 0;
+		p_xSpeed = 1;
+		p_ySpeed = 0;
 	}
-	else if (*p_key == 'a' && *p_xSpeed <= 0)
+	else if (p_key == 'a' && p_xSpeed <= 0)
 	{
-		*p_xSpeed = -1;
-		*p_ySpeed = 0;
+		p_xSpeed = -1;
+		p_ySpeed = 0;
 	}
-	else if (*p_key == 's' && *p_ySpeed >= 0)
+	else if (p_key == 's' && p_ySpeed >= 0)
 	{
-		*p_xSpeed = 0;
-		*p_ySpeed = 1;
+		p_xSpeed = 0;
+		p_ySpeed = 1;
 	}
-	else if (*p_key == 'w' && *p_ySpeed <= 0)
+	else if (p_key == 'w' && p_ySpeed <= 0)
 	{
-		*p_xSpeed = 0;
-		*p_ySpeed = -1;
+		p_xSpeed = 0;
+		p_ySpeed = -1;
 	}
 }
 
-void draw(const int& bodyLength)
+void draw(int bodyLength)
 {
-	for (int i = 0; i < 29; i++)
+	std::vector <int> snake_yPos;
+
+	for (int yPos = 0; yPos < 30; yPos++)
 	{
-		for (int j = 0; j < 120; j++)
+		for (int v = 0; v <= bodyLength; v++)
 		{
-			for (int l = 0; l <= bodyLength; l++)
+			if (bodyVector[v].getY() == yPos || theFood->getY() == yPos)
 			{
-				if (bodyVector[l].getX() == j && bodyVector[l].getY() == i)
-				{
-					std::cout << "X";
-					break;
-				}
-				if (theFood->getX() == j && theFood->getY() == i && foodSpawned == true)
-				{
-					std::cout << "F";
-					break;
-				}
-				if (l == bodyLength)
-				{
-					std::cout << " ";
-				}
+				snake_yPos.push_back(yPos);
+				break;
 			}
 		}
 	}
+
+	for (int i = 0; i < 29; i++)
+	{
+		for (int s = 0; s < snake_yPos.size(); s++)
+		{
+			if (snake_yPos[s] != i)
+			{
+				continue;
+			}
+			for (int xPos = 0; xPos < 120; xPos++)
+			{
+				for (int l = 0; l <= bodyLength; l++)
+				{
+					if (bodyVector[l].getX() == xPos && bodyVector[l].getY() == i)
+					{
+						std::cout << "X";
+						break;
+					}
+					if (theFood->getX() == xPos && theFood->getY() == i && foodSpawned == true)
+					{
+						std::cout << "F";
+						break;
+					}
+					if (l == bodyLength)
+					{
+						std::cout << " ";
+					}
+				}
+			}
+			break;
+		}
+		std::cout << "\n";
+	}
 }
 
-void move(const int& bodyLength, const int& xSpeed, const int& ySpeed)
+void move(int bodyLength, int xSpeed, int ySpeed)
 {
 	int X = bodyVector[0].getX() + xSpeed;
 	int Y = bodyVector[0].getY() + ySpeed;
@@ -98,7 +122,7 @@ void addBody(int* p_snakeLenght)
 	}
 }
 
-void spawnFood(const int& bodyLength)
+void spawnFood(int bodyLength)
 {
 	int randX = rand() % 119;
 	int randY = rand() % 28;
