@@ -6,7 +6,7 @@
 
 #include "gameplay.h"
 
-char key = ' ';
+char key;
 int xSpeed = 1;
 int ySpeed = 0;
 int bodyLenght = 0;
@@ -28,7 +28,7 @@ void gameRendering()
 	draw(bodyLenght);
 
 	std::this_thread::sleep_until(next_period);
-	std::cout << "\x1B[2J\x1B[H";
+	std::cout << "\x1B[3J\x1B[H\x1B[2J";
 
 	return gameRendering();
 }
