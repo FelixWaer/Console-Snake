@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClCompile Include="Code Files\Food.cpp" />
     <ClCompile Include="Code Files\gameplay.cpp" />
+    <ClCompile Include="Code Files\Rendering.cpp" />
     <ClCompile Include="Code Files\snakeBody.cpp" />
     <ClCompile Include="Code Files\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code Files\Food.h" />
     <ClInclude Include="Code Files\gameplay.h" />
+    <ClInclude Include="Code Files\Rendering.h" />
     <ClInclude Include="Code Files\Snake.h" />
     <ClInclude Include="Code Files\snakeBody.h" />
   </ItemGroup>

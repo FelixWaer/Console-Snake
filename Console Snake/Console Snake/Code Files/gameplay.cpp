@@ -7,10 +7,13 @@
 #include "gameplay.h"
 #include "snakeBody.h"
 #include "Food.h"
+#include "Rendering.h"
 
 std::vector<snakeBody> bodyVector;
-
+ 
 std::shared_ptr<Food> theFood = std::make_shared<Food>();
+
+Food* testFood;
 
 bool foodSpawned = false;
 
@@ -52,52 +55,7 @@ void movement(char p_key, int& p_xSpeed, int& p_ySpeed)
 
 void draw(int bodyLength)
 {
-	std::vector <int> snake_yPos;
-
-	for (int yPos = 0; yPos < 30; yPos++)
-	{
-		for (int v = 0; v <= bodyLength; v++)
-		{
-			if (bodyVector[v].getY() == yPos || theFood->getY() == yPos)
-			{
-				snake_yPos.push_back(yPos);
-				break;
-			}
-		}
-	}
-
-	for (int i = 0; i < 29; i++)
-	{
-		for (int s = 0; s < snake_yPos.size(); s++)
-		{
-			if (snake_yPos[s] != i)
-			{
-				continue;
-			}
-			for (int xPos = 0; xPos < 120; xPos++)
-			{
-				for (int l = 0; l <= bodyLength; l++)
-				{
-					if (bodyVector[l].getX() == xPos && bodyVector[l].getY() == i)
-					{
-						std::cout << "X";
-						break;
-					}
-					if (theFood->getX() == xPos && theFood->getY() == i && foodSpawned == true)
-					{
-						std::cout << "F";
-						break;
-					}
-					if (l == bodyLength)
-					{
-						std::cout << " ";
-					}
-				}
-			}
-			break;
-		}
-		std::cout << "\n";
-	}
+	runThroughConsole(bodyVector, testFood, foodSpawned, bodyLength);
 }
 
 void move(int bodyLength, int xSpeed, int ySpeed)
@@ -113,11 +71,12 @@ void move(int bodyLength, int xSpeed, int ySpeed)
 
 void addBody(int* p_snakeLenght)
 {
-	if (bodyVector[0].getX() == theFood->getX() && bodyVector[0].getY() == theFood->getY())
+	if (bodyVector[0].getX() == testFood->getX() && bodyVector[0].getY() == testFood->getY())
 	{
 		bodyVector.emplace_back(snakeBody(bodyVector[*p_snakeLenght].getX(), bodyVector[*p_snakeLenght].getY()));
 		*p_snakeLenght += 1;
 		foodSpawned = false;
+		delete testFood;
 		return spawnFood(*p_snakeLenght);
 	}
 }
@@ -133,10 +92,8 @@ void spawnFood(int bodyLength)
 		{
 			return spawnFood(bodyLength);
 		}
-		if (i == bodyLength)
-		{
-			theFood->setPos(randX, randY);
-			foodSpawned = true;
-		}
 	}
+	//theFood->setPos(randX, randY);
+	testFood = new Food(randX, randY);
+	foodSpawned = true;
 }

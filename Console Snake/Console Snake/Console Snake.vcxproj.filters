@@ -26,6 +26,9 @@
     <ClCompile Include="Code Files\snakeBody.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Code Files\Rendering.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code Files\Snake.h">
@@ -39,6 +42,9 @@
     </ClInclude>
     <ClInclude Include="Code Files\snakeBody.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Code Files\Rendering.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
