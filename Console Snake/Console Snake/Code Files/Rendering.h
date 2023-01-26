@@ -5,7 +5,7 @@
 class snakeBody;
 class Food;
 
-void check_yPos(std::vector<snakeBody>& bodyVector, Food* theFood, int bodyLength);
+void check_yPos(std::vector<snakeBody>& bodyVector, std::vector<int>& snake_yPos, Food* theFood, int bodyLength);
 
 void drawing(std::vector<snakeBody>& bodyVector, Food* theFood, bool foodSpawned, int bodyLength, int xPos, int yPos);
 

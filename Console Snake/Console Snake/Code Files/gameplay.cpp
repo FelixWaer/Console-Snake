@@ -10,8 +10,6 @@
 #include "Rendering.h"
 
 std::vector<snakeBody> bodyVector;
- 
-std::shared_ptr<Food> theFood = std::make_shared<Food>();
 
 Food* testFood;
 
@@ -93,7 +91,6 @@ void spawnFood(int bodyLength)
 			return spawnFood(bodyLength);
 		}
 	}
-	//theFood->setPos(randX, randY);
 	testFood = new Food(randX, randY);
 	foodSpawned = true;
 }
